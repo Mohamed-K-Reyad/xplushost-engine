@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  xplushost:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: xplushost-engine
+    restart: unless-stopped
+    networks:
+      - coolify
+    # volumes ستتم إضافتها من واجهة Coolify لاحقاً
+    labels:
+      # نمنع Coolify من إنشاء مسارات Traefik تلقائياً
+      # لأننا سندير التوجيه عبر ملفات Dynamic YAML يدوياً
+      traefik.enable: "false"
+
+networks:
+  coolify:
+    external: true
